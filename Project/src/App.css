@@ -417,3 +417,18 @@ h1 {
     text-align: center;
   }
 }
+.bg-bl {
+  background-color: #4886ff;
+}
+.bg-yl {
+  background-color: #f3c112;
+}
+.cl-bl {
+  color: #2980b9;
+}
+.cl-yl {
+  color: #f3c112;
+}
+.bg-bc {
+  background: linear-gradient(to right, #062440, #111830);
+}

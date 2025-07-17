@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../../../App.css"; // Make sure to create this CSS file
+import { Link } from "react-router-dom"; // Import Link from React Router
+import "../../App.css";
 
 function Header() {
   const [isFixed, setIsFixed] = useState(false);
@@ -42,86 +43,75 @@ function Header() {
           </ul>
         </div>
         <div className="add-info-soc col-lg-2 col-md-3 col-sm-12">
-          <a href="">
+          <a href="#">
             <i className="fab fa-telegram"></i>
           </a>
-          <a href="">
+          <a href="#">
             <i className="fab fa-facebook"></i>
           </a>
-          <a href="">
+          <a href="#">
             <i className="fab fa-whatsapp"></i>
           </a>
-          <a href="">
+          <a href="#">
             <i className="fab fa-instagram"></i>
           </a>
         </div>
       </div>
       <div className="logo-section">
-        <img src="/public/images/logo.png" alt="DBU Student Union Logo" />
+        <img src="/images/logo.png" alt="DBU Student Union Logo" />
       </div>
       <nav className={`navbar ${isFixed ? "fixed" : ""}`}>
-        <div className="navbar-header">
-          <button
-            className="menu-toggle"
-            onClick={() => {
-              const navLinks = document.querySelector(".nav-links");
-              navLinks.classList.toggle("active");
-            }}
-          >
-            ☰
-          </button>
-        </div>
         <ul className="nav-links">
           <li>
-            <a href="#">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="#">About Us</a>
+            <Link to="/about">About Us</Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="#">
               Clubs <span className="dropdown-icon">▼</span>
-            </a>
+            </Link>
             <ul className="dropdown">
               <li>
-                <a href="#">Tech</a>
+                <Link to="#">Tech</Link>
               </li>
               <li>
-                <a href="#">Drama</a>
+                <Link to="#">Drama</Link>
               </li>
               <li>
-                <a href="#">Art</a>
+                <Link to="#">Art</Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="#">Elections</a>
+            <Link to="#">Elections</Link>
           </li>
           <li>
-            <a href="#">Services</a>
+            <Link to="#">Services</Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="#">
               Latest <span className="dropdown-icon">▼</span>
-            </a>
+            </Link>
             <ul className="dropdown">
               <li>
-                <a href="#">Event</a>
+                <Link to="#">Event</Link>
               </li>
               <li>
-                <a href="#">News</a>
+                <Link to="#">News</Link>
               </li>
               <li>
-                <a href="#">Announcement</a>
+                <Link to="#">Announcement</Link>
               </li>
             </ul>
           </li>
           <li>
-            <a href="#">Contact</a>
+            <Link to="/contact">Contact</Link>
           </li>
         </ul>
         <div className="login">
-          <a href="#">Register</a>
+          <Link to="/register">Register</Link>
           <button>Login</button>
         </div>
       </nav>
