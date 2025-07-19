@@ -69,42 +69,16 @@ function Header() {
             <Link to="/about">About Us</Link>
           </li>
           <li>
-            <Link to="#">
-              Clubs <span className="dropdown-icon">▼</span>
-            </Link>
-            <ul className="dropdown">
-              <li>
-                <Link to="#">Tech</Link>
-              </li>
-              <li>
-                <Link to="#">Drama</Link>
-              </li>
-              <li>
-                <Link to="#">Art</Link>
-              </li>
-            </ul>
+            <Link to="#">Clubs</Link>
           </li>
           <li>
-            <Link to="#">Elections</Link>
+            <Link to="/Election">Elections</Link>
           </li>
           <li>
-            <Link to="#">Services</Link>
+            <Link to="/Services">Services</Link>
           </li>
           <li>
-            <Link to="#">
-              Latest <span className="dropdown-icon">▼</span>
-            </Link>
-            <ul className="dropdown">
-              <li>
-                <Link to="#">Event</Link>
-              </li>
-              <li>
-                <Link to="#">News</Link>
-              </li>
-              <li>
-                <Link to="#">Announcement</Link>
-              </li>
-            </ul>
+            <Link to="/Latest">Latest</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>

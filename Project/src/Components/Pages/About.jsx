@@ -1,11 +1,11 @@
 import React from "react";
 import { Users, Target, Heart, Globe, Lightbulb, Shield } from "lucide-react";
-import useLanguage from "../../contexts/useLanguage"; // Adjust the import path
+// import useLanguage from "../../contexts/useLanguage"; // Adjust the import path
 import { motion } from "framer-motion";
 import "../../App.css";
 
 function About() {
-  const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
+  // const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
 
   const values = [
     {

@@ -9,12 +9,12 @@ import {
   User,
   Building,
 } from "lucide-react";
-import useLanguage from "../../contexts/useLanguage";
+// import useLanguage from "../../contexts/useLanguage";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
 function Contact() {
-  const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
+  // const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
   const [formData, setFormData] = useState({
     name: "",
     email: "",

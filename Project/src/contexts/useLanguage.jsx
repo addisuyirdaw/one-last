@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { LanguageContext } from "./LanguageContext"; // Ensure this path is correct
+import { LanguageContext } from "./LanguageContext"; // Make sure this exists
 
 const useLanguage = () => {
   const context = useContext(LanguageContext);
@@ -9,4 +9,4 @@ const useLanguage = () => {
   return context;
 };
 
-export default useLanguage; // Ensure this line is present
+export default useLanguage;
