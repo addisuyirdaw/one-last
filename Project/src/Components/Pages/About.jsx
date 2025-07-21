@@ -4,7 +4,7 @@ import { Users, Target, Heart, Globe, Lightbulb, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import "../../App.css";
 
-function About() {
+export function About() {
   // const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
 
   const values = [
@@ -259,7 +259,7 @@ function About() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-20 bg-yl text-white">
+      <section className="py-20 bg-gradient-to-r from-emerald-400 to-emerald-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Want to Learn More?
@@ -278,4 +278,3 @@ function About() {
     </div>
   );
 }
-export default About; // Ensure this line exists

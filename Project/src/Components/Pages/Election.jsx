@@ -63,7 +63,7 @@ const mockElections = [
   },
 ];
 
-function Election() {
+export function Elections() {
   const [selectedTab, setSelectedTab] = useState("all");
   const [selectedElection, setSelectedElection] = useState(null);
 
@@ -337,4 +337,3 @@ function Election() {
     </div>
   );
 }
-export default Election;

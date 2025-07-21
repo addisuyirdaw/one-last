@@ -5,7 +5,7 @@ import { Vote, Users, MessageSquare, Building, ArrowRight } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { motion } from "framer-motion";
 
-const Home = () => {
+export const Home = () => {
   const auth = useAuth();
   const user = auth?.user;
   const features = [
@@ -13,13 +13,13 @@ const Home = () => {
       icon: Vote,
       title: "Democratic Elections",
       description: "Participate in secure, transparent student elections",
-      link: "/elections",
+      link: "/Election",
     },
     {
       icon: Users,
       title: "Student Clubs",
       description: "Join or create clubs and associations",
-      link: "/clubs",
+      link: "/Club",
     },
     {
       icon: MessageSquare,
@@ -31,7 +31,7 @@ const Home = () => {
       icon: Building,
       title: "Branch Services",
       description: "Access specialized services from different branches",
-      link: "/branches",
+      link: "/Services",
     },
   ];
 
@@ -229,7 +229,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section className="py-20 bg-gradient-to-r from-emerald-400 to-emerald-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Join the Student Union Community
@@ -252,5 +252,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home; // Default export

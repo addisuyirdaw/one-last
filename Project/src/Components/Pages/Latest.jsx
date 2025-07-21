@@ -1,7 +1,6 @@
 // src/App.js
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
 function Latest() {
   const [activeTab, setActiveTab] = useState("news");
   const [posts, setPosts] = useState([

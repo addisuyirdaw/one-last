@@ -10,12 +10,11 @@ import {
   Settings,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { useLanguage } from "../../contexts/LanguageContext";
 import { adminCredentials } from "../../data/adminCredentials";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
-function LoginForm() {
+export function LoginForm() {
   const [accessType, setAccessType] = useState("student");
   const [loginMethod, setLoginMethod] = useState("university");
   const [formData, setFormData] = useState({
@@ -31,7 +30,6 @@ function LoginForm() {
   const [availableRoles, setAvailableRoles] = useState([]);
 
   const { login, loginWithGoogle } = useAuth();
-  const { language, t } = useLanguage();
 
   const adminRoles = [
     { value: "president", label: "President" },
@@ -93,19 +91,19 @@ function LoginForm() {
       } else {
         if (loginMethod === "google") {
           await loginWithGoogle();
-          toast.success(t("auth.loginSuccess"));
+          toast.success("Login successful");
         } else {
           if (!showOtpField) {
             setShowOtpField(true);
-            toast.success(t("auth.otpSent"));
+            toast.success("OTP has been sent");
           } else {
             await login(formData.email, formData.password, formData.otp);
-            toast.success(t("auth.loginSuccess"));
+            toast.success("Login successful");
           }
         }
       }
     } catch (error) {
-      toast.error(error.message || t("auth.invalidCredentials"));
+      toast.error(error.message || "Invalid credentials");
     } finally {
       setIsLoading(false);
     }
@@ -144,10 +142,8 @@ function LoginForm() {
           </motion.div>
 
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
-              {t("auth.loginTitle")}
-            </h2>
-            <p className="text-gray-600">{t("auth.loginSubtitle")}</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Login</h2>
+            <p className="text-gray-600">Please enter your credentials.</p>
           </div>
         </div>
 
@@ -465,10 +461,10 @@ function LoginForm() {
                 {accessType === "admin"
                   ? "Admin Access"
                   : loginMethod === "google"
-                  ? t("auth.loginWithGoogle")
+                  ? "Login with Google"
                   : showOtpField
-                  ? t("auth.verifyOtp")
-                  : t("auth.login")}
+                  ? "Verify OTP"
+                  : "Login"}
               </>
             )}
           </motion.button>
@@ -526,4 +522,3 @@ function LoginForm() {
     </div>
   );
 }
-export default LoginForm;

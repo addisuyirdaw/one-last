@@ -13,7 +13,7 @@ import {
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
-function Contact() {
+export function Contact() {
   // const { language = "defaultLanguage" } = useLanguage(); // Provide a default value
   const [formData, setFormData] = useState({
     name: "",
@@ -381,4 +381,3 @@ function Contact() {
     </div>
   );
 }
-export default Contact;

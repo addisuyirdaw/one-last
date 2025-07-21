@@ -3,7 +3,10 @@
   padding: 0;
 }
 
-body {
+body,
+html {
+  margin: 0;
+  padding: 0;
   width: 100%;
   height: 100vh;
   font-family: Arial, sans-serif;
@@ -232,6 +235,17 @@ body {
   .nav-links.active {
     display: flex;
   }
+  .nav-links {
+    display: none; /* Hide by default */
+  }
+
+  .nav-links.open {
+    display: block; /* Show when open */
+  }
+
+  .menu-toggle {
+    cursor: pointer; /* Change cursor to pointer */
+  }
 
   .menu-toggle {
     display: block;
@@ -241,7 +255,7 @@ body {
   }
 
   .login {
-    top: 20px;
+    top: 50px;
     right: 20px;
     color: #000000;
   }

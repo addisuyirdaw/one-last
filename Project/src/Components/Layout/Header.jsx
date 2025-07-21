@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from React Router
 import "../../App.css";
 
-function Header() {
+export function Header() {
   const [isFixed, setIsFixed] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace this with your actual authentication logic
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +24,15 @@ function Header() {
     // Cleanup event listener on component unmount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLoginLogout = () => {
+    // Replace with actual login/logout logic
+    setIsLoggedIn(!isLoggedIn);
+  };
 
   return (
     <header className="header">
@@ -61,7 +72,10 @@ function Header() {
         <img src="/images/logo.png" alt="DBU Student Union Logo" />
       </div>
       <nav className={`navbar ${isFixed ? "fixed" : ""}`}>
-        <ul className="nav-links">
+        <div className="menu-toggle" onClick={toggleMenu}>
+          {isMenuOpen ? "X" : "☰"}
+        </div>
+        <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -69,36 +83,31 @@ function Header() {
             <Link to="/about">About Us</Link>
           </li>
           <li>
-            <Link to="#">Clubs</Link>
+            <Link to="/Club">Clubs</Link>
           </li>
           <li>
-            <Link to="/Election">Elections</Link>
+            <Link to="/elections">Elections</Link>
           </li>
           <li>
-            <Link to="/Services">Services</Link>
+            <Link to="/services">Services</Link>
           </li>
           <li>
-            <Link to="/Latest">Latest</Link>
+            <Link to="/latest">Latest</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>
           </li>
         </ul>
         <div className="login">
-          <Link to="/register">Register</Link>
-          <button>Login</button>
+          {isLoggedIn ? (
+            <button onClick={handleLoginLogout}>Logout</button>
+          ) : (
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          )}
         </div>
       </nav>
     </header>
   );
 }
-
-const App = () => {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
-};
-
-export default App;

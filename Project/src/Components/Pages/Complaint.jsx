@@ -16,7 +16,7 @@ import { branches } from "../../data/Branchis";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
-export default function Complaints() {
+export function Complaints() {
   const { user } = useAuth();
 
   const [selectedTab, setSelectedTab] = useState("all");

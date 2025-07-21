@@ -6,7 +6,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { services } from "../../data/Services"; // Update data source
 import { motion } from "framer-motion";
 
-function Services() {
+export function Services() {
   const { user } = useAuth();
   const [expandedService, setExpandedService] = useState(null);
 
@@ -212,4 +212,3 @@ function Services() {
     </div>
   );
 }
-export default Services;
