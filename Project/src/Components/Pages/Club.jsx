@@ -1,293 +1,243 @@
-import { useState } from "react";
-import { Users, Calendar, Award, Search, Filter, Plus } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { User, Phone, BookOpen, CheckCircle2, XCircle, ChevronDown } from 'lucide-react';
 
-export function Clubs() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const categories = [
-    "All",
-    "Academic",
-    "Sports",
-    "Cultural",
-    "Technology",
-    "Service",
-    "Arts",
-  ];
-
-  const clubs = [
-    {
-      name: "Debate Society",
-      category: "Academic",
-      members: 45,
-      description:
-        "Developing critical thinking and public speaking skills through competitive debates",
-      image:
-        "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 12,
-      founded: "2015",
-    },
-    {
-      name: "Football Club",
-      category: "Sports",
-      members: 60,
-      description:
-        "University football team competing in inter-university tournaments",
-      image:
-        "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 8,
-      founded: "2012",
-    },
-    {
-      name: "Drama Club",
-      category: "Cultural",
-      members: 32,
-      description:
-        "Theatrical performances and creative expression through drama and arts",
-      image:
-        "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 15,
-      founded: "2016",
-    },
-    {
-      name: "Computer Science Society",
-      category: "Technology",
-      members: 78,
-      description:
-        "Programming workshops, hackathons, and tech innovation projects",
-      image:
-        "https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 20,
-      founded: "2014",
-    },
-    {
-      name: "Volunteer Corps",
-      category: "Service",
-      members: 55,
-      description: "Community service and volunteer work in local communities",
-      image:
-        "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 25,
-      founded: "2013",
-    },
-    {
-      name: "Photography Club",
-      category: "Arts",
-      members: 28,
-      description:
-        "Capturing university life and developing photography skills",
-      image:
-        "https://images.pexels.com/photos/1983032/pexels-photo-1983032.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 10,
-      founded: "2017",
-    },
-    {
-      name: "Environmental Club",
-      category: "Service",
-      members: 42,
-      description:
-        "Environmental conservation and sustainability initiatives on campus",
-      image:
-        "https://images.pexels.com/photos/2990644/pexels-photo-2990644.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 18,
-      founded: "2018",
-    },
-    {
-      name: "Music Society",
-      category: "Arts",
-      members: 35,
-      description:
-        "Musical performances, concerts, and music education programs",
-      image:
-        "https://images.pexels.com/photos/3693120/pexels-photo-3693120.jpeg?auto=compress&cs=tinysrgb&w=400",
-      events: 14,
-      founded: "2016",
-    },
-  ];
-
-  const filteredClubs = clubs.filter((club) => {
-    const matchesCategory =
-      selectedCategory === "All" || club.category === selectedCategory;
-    const matchesSearch =
-      club.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      club.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+export function ClubRegistration() {
+  // Student registration state
+  const [studentData, setStudentData] = useState({
+    studentId: '',
+    phone: '',
+    department: '',
+    clubId: '',
+    verificationFile: null
   });
 
-  return (
-    <div className="">
-      <div className="">
-        {/* Header */}
-        <section className="bg-bc text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
-            >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Student Clubs
-              </h1>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto">
-                Join one of our many student clubs and organizations to pursue
-                your interests, develop new skills, and connect with like-minded
-                peers.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+  // Club representative state
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [approvedMembers, setApprovedMembers] = useState([]);
 
-        {/* Search and Filter */}
-        <div className="mb-8 lg:mb-12">
-          {/* Search Bar */}
-          <div className="relative mb-6">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+  // Mock data
+  const clubs = [
+    { id: '1', name: 'Debate Society', representative: 'Rep. Alemu' },
+    { id: '2', name: 'Football Club', representative: 'Rep. Tigist' },
+    { id: '3', name: 'CS Society', representative: 'Rep. Daniel' }
+  ];
+
+  const departments = [
+    'Computer Science', 
+    'Engineering',
+    'Business',
+    'Medicine',
+    'Law'
+  ];
+
+  // Handle student registration
+  const handleStudentSubmit = (e) => {
+    e.preventDefault();
+    if (!/^DBU\d{7}$/.test(studentData.studentId)) {
+      alert('Invalid DBU ID format (DBU followed by 7 digits)');
+      return;
+    }
+    
+    // Add to pending requests
+    setPendingRequests(prev => [...prev, {
+      ...studentData,
+      id: Date.now().toString(),
+      status: 'pending',
+      date: new Date().toISOString()
+    }]);
+    
+    alert('Registration submitted for club approval');
+    setStudentData({
+      studentId: '',
+      phone: '',
+      department: '',
+      clubId: '',
+      verificationFile: null
+    });
+  };
+
+  // Club representative actions
+  const handleApprove = (requestId) => {
+    const request = pendingRequests.find(r => r.id === requestId);
+    setApprovedMembers(prev => [...prev, { ...request, status: 'approved' }]);
+    setPendingRequests(prev => prev.filter(r => r.id !== requestId));
+  };
+
+  const handleReject = (requestId) => {
+    setPendingRequests(prev => prev.filter(r => r.id !== requestId));
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto p-4 grid md:grid-cols-2 gap-8">
+      {/* Student Registration Section */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <h2 className="text-xl font-bold mb-4 flex items-center">
+          <User className="mr-2" /> Club Registration
+        </h2>
+        
+        <form onSubmit={handleStudentSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 font-medium">DBU Student ID</label>
             <input
               type="text"
-              placeholder="Search clubs..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={studentData.studentId}
+              onChange={(e) => setStudentData({...studentData, studentId: e.target.value.toUpperCase()})}
+              placeholder="DBU1500962"
+              className="w-full p-2 border rounded"
+              required
+            />
+            <p className="text-xs text-gray-500 mt-1">Format: DBU followed by 7 digits</p>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Phone Number</label>
+            <div className="flex items-center border rounded">
+              <span className="px-3 bg-gray-100">+251</span>
+              <input
+                type="tel"
+                value={studentData.phone}
+                onChange={(e) => setStudentData({...studentData, phone: e.target.value})}
+                placeholder="912345678"
+                className="flex-1 p-2"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Department</label>
+            <div className="relative">
+              <select
+                value={studentData.department}
+                onChange={(e) => setStudentData({...studentData, department: e.target.value})}
+                className="w-full p-2 border rounded appearance-none"
+                required
+              >
+                <option value="">Select your department</option>
+                {departments.map(dept => (
+                  <option key={dept} value={dept}>{dept}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-3 text-gray-400" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">Select Club</label>
+            <div className="relative">
+              <select
+                value={studentData.clubId}
+                onChange={(e) => setStudentData({...studentData, clubId: e.target.value})}
+                className="w-full p-2 border rounded appearance-none"
+                required
+              >
+                <option value="">Select a club</option>
+                {clubs.map(club => (
+                  <option key={club.id} value={club.id}>
+                    {club.name} ({club.representative})
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-3 text-gray-400" />
+            </div>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium">
+              Upload Student ID (Photo/Scan)
+            </label>
+            <input
+              type="file"
+              onChange={(e) => setStudentData({...studentData, verificationFile: e.target.files[0]})}
+              accept="image/*,.pdf"
+              className="w-full p-2 border rounded"
+              required
             />
           </div>
 
-          {/* Category Filter */}
-          <div className="flex items-center gap-2 mb-6">
-            <Filter className="w-5 h-5 text-gray-500" />
-            <span className="text-gray-700 font-medium">
-              Filter by category:
-            </span>
-          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          >
+            Submit Registration
+          </button>
+        </form>
+      </div>
 
-          <div className="flex flex-wrap gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${
-                  selectedCategory === category
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            Showing {filteredClubs.length} of {clubs.length} clubs
-            {selectedCategory !== "All" && ` in ${selectedCategory}`}
-            {searchTerm && ` matching "${searchTerm}"`}
-          </p>
-        </div>
-
-        {/* Clubs Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
-          {filteredClubs.map((club, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
-            >
-              <div className="relative">
-                <img
-                  src={club.image}
-                  alt={club.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-medium">
-                    {club.category}
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {club.name}
-                  </h3>
-                  <span className="text-gray-500 text-sm">
-                    Est. {club.founded}
-                  </span>
-                </div>
-
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed">
-                  {club.description}
-                </p>
-
-                {/* Stats */}
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                  <div className="flex items-center">
-                    <Users className="w-4 h-4 mr-1" />
-                    <span>{club.members} members</span>
+      {/* Club Representative Dashboard */}
+      <div className="space-y-6">
+        {/* Pending Approvals */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="font-bold mb-4 flex items-center">
+            <BookOpen className="mr-2" /> Pending Approvals
+          </h3>
+          
+          {pendingRequests.length === 0 ? (
+            <p className="text-gray-500">No pending requests</p>
+          ) : (
+            <div className="space-y-3">
+              {pendingRequests.map(request => (
+                <div key={request.id} className="border rounded-lg p-4">
+                  <div className="grid grid-cols-2 gap-2 mb-2">
+                    <p><span className="font-medium">ID:</span> {request.studentId}</p>
+                    <p><span className="font-medium">Phone:</span> +251{request.phone}</p>
+                    <p><span className="font-medium">Department:</span> {request.department}</p>
+                    <p><span className="font-medium">Date:</span> {new Date(request.date).toLocaleDateString()}</p>
                   </div>
-                  <div className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    <span>{club.events} events/year</span>
+                  <div className="flex justify-end space-x-2">
+                    <button 
+                      onClick={() => handleApprove(request.id)}
+                      className="flex items-center px-3 py-1 bg-green-100 text-green-800 rounded hover:bg-green-200"
+                    >
+                      <CheckCircle2 className="mr-1" size={16} /> Approve
+                    </button>
+                    <button 
+                      onClick={() => handleReject(request.id)}
+                      className="flex items-center px-3 py-1 bg-red-100 text-red-800 rounded hover:bg-red-200"
+                    >
+                      <XCircle className="mr-1" size={16} /> Reject
+                    </button>
                   </div>
                 </div>
-
-                <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                  Join Club
-                </button>
-              </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
 
-        {/* No Results */}
-        {filteredClubs.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-gray-400" />
+        {/* Approved Members */}
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="font-bold mb-4 flex items-center">
+            <CheckCircle2 className="mr-2" /> Approved Members
+          </h3>
+          
+          {approvedMembers.length === 0 ? (
+            <p className="text-gray-500">No approved members yet</p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="p-2 text-left">Student ID</th>
+                    <th className="p-2 text-left">Department</th>
+                    <th className="p-2 text-left">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {approvedMembers.map(member => (
+                    <tr key={member.id} className="border-b">
+                      <td className="p-2">{member.studentId}</td>
+                      <td className="p-2">{member.department}</td>
+                      <td className="p-2">
+                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                          Approved
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              No clubs found
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Try adjusting your search terms or category filter
-            </p>
-            <button
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedCategory("All");
-              }}
-              className="text-blue-600 hover:text-blue-700 font-medium"
-            >
-              Clear filters
-            </button>
-          </div>
-        )}
-
-        {/* Create Club CTA */}
-        <div className="bg-gradient-to-r from-emerald-800 to-emerald-400  p-6 lg:p-8 text-center text-white">
-          <div className="max-w-2xl mx-auto">
-            <div className="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Plus className="w-8 h-8" />
-            </div>
-            <h2 className="text-2xl lg:text-3xl font-bold mb-4">
-              Want to Start a New Club?
-            </h2>
-            <p className="text-blue-100 mb-6 text-lg">
-              Have an idea for a new club or organization? We support student
-              initiatives and can help you get started with the registration
-              process.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Start a Club
-              </button>
-              <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
-                Learn More
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

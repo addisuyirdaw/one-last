@@ -8,7 +8,7 @@ import {
 import { Toaster } from "react-hot-toast";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { Layout } from "./Components/Layout/Layout";
-import { LoginForm } from "./components/Auth/LoginForm";
+import { LoginForm } from "./Components/Auth/LoginForm";
 import { Home } from "./Components/Pages/Home";
 import { About } from "./Components/Pages/About";
 import { Contact } from "./Components/Pages/Contact";
@@ -45,7 +45,7 @@ function AdminRoute({ children }) {
   const { user } = useAuth();
   const adminRoles = [
     "president",
-    "student_din",
+    "student_din", 
     "vice_president",
     "secretary",
     "speaker",
@@ -74,16 +74,18 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/Services" element={<Services />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/elections" element={<Elections />} />
+          <Route path="/club" element={<Clubs />} />
+          <Route path="/complaints" element={<Complaints />} />
 
           {/* Auth Route */}
           <Route
             path="/login"
-            element={
-              user ? <Navigate to="/dashboard" replace /> : <LoginForm />
-            }
+            element={user ? <Navigate to="/dashboard" replace /> : <LoginForm />}
           />
 
+          {/* Protected Routes */}
           <Route
             path="/admin"
             element={
@@ -94,40 +96,9 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route
-            path="/elections"
-            element={
-              <ProtectedRoute>
-                <Elections />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/elections"
-            element={
-              <ProtectedRoute>
-                <Elections />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Club"
-            element={
-              <ProtectedRoute>
-                <Clubs />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/complaints"
-            element={
-              <ProtectedRoute>
-                <Complaints />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Latest"
+            path="/latest"
             element={
               <ProtectedRoute>
                 <Latest />
