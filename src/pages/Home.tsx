@@ -5,16 +5,16 @@ import {
   Users, 
   MessageSquare, 
   Building, 
-  Calendar,
   Award,
   ArrowRight,
-  CheckCircle,
   TrendingUp,
-  Globe
+  Calendar,
+  CheckCircle
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
+import { PublicLayout } from '../components/Layout/PublicLayout';
 
 export function Home() {
   const { language } = useLanguage();
@@ -87,21 +87,24 @@ export function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <PublicLayout>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="flex items-center justify-center mb-8">
-                <div className="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mr-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center mb-8">
+                <div className="w-20 h-20 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-4 sm:mb-0 sm:mr-4">
                   <span className="text-3xl font-bold">DBU</span>
                 </div>
-                <div className={`text-left ${language === 'am' ? 'font-ethiopic' : ''}`}>
+                <div className={`text-center sm:text-left ${language === 'am' ? 'font-ethiopic' : ''}`}>
                   <h1 className="text-4xl md:text-6xl font-bold mb-2">
                     {language === 'am' ? 'የተማሪዎች ማህበር' : 'Student Union'}
                   </h1>
@@ -111,67 +114,69 @@ export function Home() {
                 </div>
               </div>
               
-              <p className={`text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto ${language === 'am' ? 'font-ethiopic' : ''}`}>
+              <p className={`text-xl md:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto ${language === 'am' ? 'font-ethiopic' : ''}`}>
                 {language === 'am' 
                   ? 'የተማሪዎች ድምጽ፣ የተማሪዎች ምርጫ፣ የተማሪዎች ወደፊት' 
                   : 'Your Voice, Your Choice, Your Future'}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 {!user ? (
-                  <Link
-                    to="/login"
-                    className={`bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-colors ${language === 'am' ? 'font-ethiopic' : ''}`}
-                  >
-                    {language === 'am' ? 'ይግቡ' : 'Get Started'}
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Link
+                      to="/login"
+                      className={`inline-block bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl ${language === 'am' ? 'font-ethiopic' : ''}`}
+                    >
+                      {language === 'am' ? 'ይግቡ' : 'Get Started'}
+                    </Link>
+                  </motion.div>
                 ) : (
-                  <Link
-                    to="/dashboard"
-                    className={`bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-colors ${language === 'am' ? 'font-ethiopic' : ''}`}
-                  >
-                    {language === 'am' ? 'ወደ ዳሽቦርድ' : 'Go to Dashboard'}
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Link
+                      to="/dashboard"
+                      className={`inline-block bg-white text-blue-700 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl ${language === 'am' ? 'font-ethiopic' : ''}`}
+                    >
+                      {language === 'am' ? 'ወደ ዳሽቦርድ' : 'Go to Dashboard'}
+                    </Link>
+                  </motion.div>
                 )}
                 
-                <Link
-                  to="/about"
-                  className={`border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition-colors ${language === 'am' ? 'font-ethiopic' : ''}`}
-                >
-                  {language === 'am' ? 'ስለ እኛ' : 'Learn More'}
-                </Link>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Link
+                    to="/about"
+                    className={`inline-block border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-blue-700 transition-all duration-200 backdrop-blur-sm ${language === 'am' ? 'font-ethiopic' : ''}`}
+                  >
+                    {language === 'am' ? 'ስለ እኛ' : 'Learn More'}
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Hero Stats */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                    className="text-center bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+                  >
+                    <div className="text-2xl md:text-3xl font-bold mb-2">
+                      {stat.number}
+                    </div>
+                    <div className={`text-blue-100 text-sm ${language === 'am' ? 'font-ethiopic' : ''}`}>
+                      {language === 'am' ? stat.labelAm : stat.label}
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
-                  {stat.number}
-                </div>
-                <div className={`text-gray-600 ${language === 'am' ? 'font-ethiopic' : ''}`}>
-                  {language === 'am' ? stat.labelAm : stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Features Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className={`text-3xl md:text-4xl font-bold text-gray-900 mb-4 ${language === 'am' ? 'font-ethiopic' : ''}`}>
@@ -191,7 +196,7 @@ export function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow group"
+                className="bg-gray-50 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 group hover:-translate-y-1"
               >
                 <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 transition-colors">
                   <feature.icon className="w-6 h-6 text-blue-600 group-hover:text-white transition-colors" />
@@ -216,7 +221,7 @@ export function Home() {
       </section>
 
       {/* Announcements Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <h2 className={`text-3xl md:text-4xl font-bold text-gray-900 ${language === 'am' ? 'font-ethiopic' : ''}`}>
@@ -237,7 +242,7 @@ export function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow ${
+                className={`bg-white rounded-xl p-6 hover:shadow-md transition-shadow ${
                   announcement.urgent ? 'border-l-4 border-red-500' : ''
                 }`}
               >
@@ -280,6 +285,6 @@ export function Home() {
           )}
         </div>
       </section>
-    </div>
+    </PublicLayout>
   );
 }
